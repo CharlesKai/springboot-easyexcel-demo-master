@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="link.lycreate.springbooteasyexceldemo.dao.DemoDao">
+  <resultMap id="BaseResultMap" type="link.lycreate.springbooteasyexceldemo.domain.Demo">
+    <id column="demo_id" jdbcType="INTEGER" property="demoId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="demo_data" jdbcType="DATE" property="demoData" />
+    <result column="data_num" jdbcType="INTEGER" property="dataNum" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    demo_id, title, demo_data, data_num
+  </sql>
+  <select id="selectByExample" parameterType="link.lycreate.springbooteasyexceldemo.domain.DemoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from demo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from demo
+    where demo_id = #{demoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from demo
+    where demo_id = #{demoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="link.lycreate.springbooteasyexceldemo.domain.DemoExample">
+    delete from demo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="demo_id" keyProperty="demoId" parameterType="link.lycreate.springbooteasyexceldemo.domain.Demo" useGeneratedKeys="true">
+    insert into demo (title, demo_data, data_num
+      )
+    values (#{title,jdbcType=VARCHAR}, #{demoData,jdbcType=DATE}, #{dataNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="demo_id" keyProperty="demoId" parameterType="link.lycreate.springbooteasyexceldemo.domain.Demo" useGeneratedKeys="true">
+    insert into demo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="demoData != null">
+        demo_data,
+      </if>
+      <if test="dataNum != null">
+        data_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="demoData != null">
+        #{demoData,jdbcType=DATE},
+      </if>
+      <if test="dataNum != null">
+        #{dataNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="link.lycreate.springbooteasyexceldemo.domain.DemoExample" resultType="java.lang.Long">
+    select count(*) from demo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update demo
+    <set>
+      <if test="record.demoId != null">
+        demo_id = #{record.demoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.demoData != null">
+        demo_data = #{record.demoData,jdbcType=DATE},
+      </if>
+      <if test="record.dataNum != null">
+        data_num = #{record.dataNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update demo
+    set demo_id = #{record.demoId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      demo_data = #{record.demoData,jdbcType=DATE},
+      data_num = #{record.dataNum,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="link.lycreate.springbooteasyexceldemo.domain.Demo">
+    update demo
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="demoData != null">
+        demo_data = #{demoData,jdbcType=DATE},
+      </if>
+      <if test="dataNum != null">
+        data_num = #{dataNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where demo_id = #{demoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="link.lycreate.springbooteasyexceldemo.domain.Demo">
+    update demo
+    set title = #{title,jdbcType=VARCHAR},
+      demo_data = #{demoData,jdbcType=DATE},
+      data_num = #{dataNum,jdbcType=INTEGER}
+    where demo_id = #{demoId,jdbcType=INTEGER}
+  </update>
+</mapper>
