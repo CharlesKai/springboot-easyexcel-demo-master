@@ -1,6 +1,7 @@
 package link.lycreate.springbooteasyexceldemo.controller;
 
 import com.alibaba.excel.EasyExcel;
+import link.lycreate.springbooteasyexceldemo.aspect.LogFilter;
 import link.lycreate.springbooteasyexceldemo.dao.DemoDao;
 import link.lycreate.springbooteasyexceldemo.domain.Demo;
 import link.lycreate.springbooteasyexceldemo.domain.LocalFile;
@@ -44,5 +45,11 @@ public class ExcelDemoController {
         EasyExcel.read(localFile.getFilePathStr(),Demo.class,new UploadDataListener(demoDao)).sheet().doRead();
         LOGGER.get().info("读取文件成功！");
         return "/uploadStatus";
+    }
+
+    @LogFilter("保存请求日志")
+    @RequestMapping(path = "/saveRequestLog",method = RequestMethod.POST)
+    public String saveRequestLog(@RequestParam("name")String name){
+        return "请求成功：" + name;
     }
 }
