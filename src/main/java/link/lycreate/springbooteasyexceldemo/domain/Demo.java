@@ -13,6 +13,8 @@ import java.util.Date;
  */
 @Data
 public class Demo implements Serializable {
+
+    @ExcelProperty("序号")
     private Integer demoId;
 
     @ExcelProperty("标题")

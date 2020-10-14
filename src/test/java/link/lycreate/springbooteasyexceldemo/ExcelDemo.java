@@ -30,4 +30,19 @@ public class ExcelDemo extends SpringbootEasyexcelDemoApplicationTests{
         EasyExcel.read(filePath, Demo.class,new UploadDataListener(demoDao)).sheet().doRead();
         System.out.println("测试解析指定路径下excel结束");
     }
+
+    @Test
+    public void testPostman(){
+//        OkHttpClient client = new OkHttpClient().newBuilder()
+//                .build();
+//        MediaType mediaType = MediaType.parse("application/json");
+//        RequestBody body = RequestBody.create(mediaType, "");
+//        Request request = new Request.Builder()
+//                .url("http://localhost:8080/saveRequestLog?name=wangwu")
+//                .method("POST", body)
+//                .addHeader("Content-Type", "application/json")
+//                .addHeader("Cookie", "JSESSIONID=ECFC51F91CC6FD9F486AC2B253A72222")
+//                .build();
+//        Response response = client.newCall(request).execute();
+    }
 }

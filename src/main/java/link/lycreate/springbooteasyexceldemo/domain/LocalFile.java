@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @ClassName LocalFile
- * @Description TODO $
+ * @Description 接收附件入参实体类
  * @Author charlesYan
  * @Date 2020/9/27 18:43
  * @Version 1.0
